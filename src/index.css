@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/*
+ * Theming
+ * -------
+ * Three themes, selected by <html data-theme="...">:
+ *   dark  (default)  Midnight: near-black canvas, Flutter sky-blue accent
+ *   light            Daylight: cool white canvas, Flutter blue accent
+ *   paper            Paper: warm editorial off-white, deep Flutter navy accent
+ *
+ * Components must ONLY use the semantic utilities generated below
+ * (bg-canvas, bg-surface, text-ink, text-body, border-line, text-accent, ...).
+ * Never hardcode hex colours or use `dark:` variants in components. To add a
+ * theme, add one more [data-theme] block that defines every variable.
+ */
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Surfaces */
+  --color-canvas: var(--t-canvas);
+  --color-surface: var(--t-surface);
+  --color-surface-2: var(--t-surface-2);
+  --color-surface-hover: var(--t-surface-hover);
+
+  /* Lines */
+  --color-line: var(--t-line);
+  --color-line-soft: var(--t-line-soft);
+  --color-line-strong: var(--t-line-strong);
+
+  /* Text, strongest to weakest */
+  --color-ink: var(--t-ink);
+  --color-ink-2: var(--t-ink-2);
+  --color-body: var(--t-body);
+  --color-muted: var(--t-muted);
+  --color-subtle: var(--t-subtle);
+  --color-faint: var(--t-faint);
+
+  /* Accent */
+  --color-accent: var(--t-accent);
+  --color-accent-hover: var(--t-accent-hover);
+  --color-accent-solid: var(--t-accent-solid);
+  --color-accent-solid-hover: var(--t-accent-solid-hover);
+  --color-on-accent: var(--t-on-accent);
+
+  /* Decorative ambient glow (hero placeholder) */
+  --color-glow: var(--t-glow);
+}
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --t-canvas: #090c10;
+  --t-surface: #11161d;
+  --t-surface-2: #0c1016;
+  --t-surface-hover: #161d26;
+  --t-line: #1e2631;
+  --t-line-soft: #1a212b;
+  --t-line-strong: #2b3746;
+  --t-ink: #f3f6fa;
+  --t-ink-2: #dce5f0;
+  --t-body: #b4c0ce;
+  --t-muted: #9ba8b8;
+  --t-subtle: #7e8ea1;
+  --t-faint: #667588;
+  --t-accent: #38a3ff;
+  --t-accent-hover: #7dc3ff;
+  --t-accent-solid: #0468d7;
+  --t-accent-solid-hover: #197be8;
+  --t-on-accent: #ffffff;
+  --t-grid-line: rgba(56, 163, 255, 0.05);
+  --t-glow: rgba(56, 163, 255, 0.15);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --t-canvas: #fafbfd;
+  --t-surface: #ffffff;
+  --t-surface-2: #f4f6f9;
+  --t-surface-hover: #f6f8fb;
+  --t-line: #e2e8f0;
+  --t-line-soft: #eef2f6;
+  --t-line-strong: #cbd5e1;
+  --t-ink: #0b1220;
+  --t-ink-2: #1e293b;
+  --t-body: #334155;
+  --t-muted: #475569;
+  --t-subtle: #5f6b7e;
+  --t-faint: #7c8899;
+  --t-accent: #0468d7;
+  --t-accent-hover: #0356b5;
+  --t-accent-solid: #0468d7;
+  --t-accent-solid-hover: #0356b5;
+  --t-on-accent: #ffffff;
+  --t-grid-line: rgba(4, 104, 215, 0.08);
+  --t-glow: rgba(4, 104, 215, 0.14);
+}
+
+:root[data-theme="paper"] {
+  color-scheme: light;
+  --t-canvas: #f5f0e6;
+  --t-surface: #fbf8f1;
+  --t-surface-2: #efe8da;
+  --t-surface-hover: #f8f3ea;
+  --t-line: #e2d8c5;
+  --t-line-soft: #ebe3d4;
+  --t-line-strong: #cfc1a8;
+  --t-ink: #1f1b16;
+  --t-ink-2: #2e2922;
+  --t-body: #463f35;
+  --t-muted: #5c5347;
+  --t-subtle: #6f6556;
+  --t-faint: #8a7f6c;
+  --t-accent: #02569b;
+  --t-accent-hover: #013f73;
+  --t-accent-solid: #02569b;
+  --t-accent-solid-hover: #01447c;
+  --t-on-accent: #fffdf8;
+  --t-grid-line: rgba(2, 86, 155, 0.08);
+  --t-glow: rgba(214, 170, 96, 0.22);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    overflow-x: clip;
+    background-color: var(--t-canvas);
+    color: var(--t-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Optical clarity for light text on dark backgrounds */
+  :root[data-theme="dark"] body {
+    letter-spacing: 0.005em;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--t-accent) 22%, transparent);
+    color: var(--t-ink);
+  }
+
+  /* Accessible focus indicators */
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--t-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Blueprint grid used behind the hero avatar placeholder */
+.bg-blueprint {
+  background-image:
+    linear-gradient(to right, var(--t-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--t-grid-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+}

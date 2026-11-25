@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Idris Idris | Software Engineer (Flutter &amp; Mobile)</title>
+    <meta
+      name="description"
+      content="Portfolio of Idris Idris, a Software Engineer in Lagos specialising in production Flutter apps on iOS and Android, mobile architecture, security, and code review."
+    />
+    <meta name="author" content="Idris Idris" />
+    <meta name="theme-color" content="#090C10" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Idris Idris" />
+    <meta property="og:title" content="Idris Idris | Software Engineer (Flutter &amp; Mobile)" />
+    <meta
+      property="og:description"
+      content="Software Engineer specialising in production Flutter apps on iOS and Android, architecture, analytics, security, and code review."
+    />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Idris Idris | Software Engineer (Flutter &amp; Mobile)" />
+    <meta
+      name="twitter:description"
+      content="Software Engineer specialising in production Flutter apps on iOS and Android, architecture, analytics, security, and code review."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Typography: Plus Jakarta Sans + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Idris Idris",
+        "jobTitle": "Software Engineer · Flutter & Mobile",
+        "email": "mailto:idrisade.eedris@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Lagos",
+          "addressCountry": "NG"
+        },
+        "sameAs": [
+          "https://github.com/IdrisAdeyemi01",
+          "https://linkedin.com/in/idris-idris"
+        ],
+        "knowsAbout": [
+          "Flutter",
+          "Dart",
+          "Mobile Application Development",
+          "BLoC",
+          "Firebase",
+          "iOS",
+          "Android",
+          "Code Review"
+        ]
+      }
+    </script>
+
+    <!-- Prevent theme flash: resolve saved theme before first paint.
+         Keep the ids and storage key in sync with src/theme.ts. -->
+    <script>
+      (function () {
+        var themes = { dark: '#090C10', light: '#FAFBFD', paper: '#F5F0E6' };
+        var theme = 'dark';
+        try {
+          var saved = localStorage.getItem('idris-portfolio-theme');
+          if (saved && themes[saved]) theme = saved;
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', themes[theme]);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
