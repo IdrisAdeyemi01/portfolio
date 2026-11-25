@@ -5,7 +5,7 @@ Personal portfolio for Idris Idris, Software Engineer (Flutter & Mobile), Lagos.
 ## Stack
 
 - React 19 + TypeScript, Vite 8, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tailwind.config`), `motion` for scroll reveals, `lucide-react` icons.
-- Single page, no router, no backend. Static build in `dist/`.
+- Single page, no router, no backend. Static build in `dist/`, hosted on Vercel (`npx vercel --prod` to deploy). `base: './'` in `vite.config.ts` keeps asset paths relative so the build works at any URL.
 - Fonts: Plus Jakarta Sans (text) + JetBrains Mono (labels), loaded from Google Fonts in `index.html`.
 
 ```bash

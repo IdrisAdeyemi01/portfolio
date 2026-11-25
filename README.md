@@ -19,4 +19,10 @@ All copy, links, experience and projects live in [`src/content.ts`](src/content.
 
 ## Deploy
 
-Every push to `main` builds and deploys to GitHub Pages via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). One-time setup: repo **Settings → Pages → Source: GitHub Actions**.
+Hosted on Vercel (framework preset: Vite, build `npm run build`, output `dist`). Redeploy from this folder with:
+
+```bash
+npx vercel --prod
+```
+
+If the repo is connected to Vercel through GitHub, every push to `main` deploys automatically.
