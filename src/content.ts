@@ -45,6 +45,9 @@ export type ProjectMockupId =
   | 'nology-mobile'
   | 'kabsa'
   | 'nesterverify'
+  | 'whoosh'
+  | 'greamit'
+  | 'striit'
   | 'emc-portal'
   | 'runway';
 
@@ -56,7 +59,8 @@ export interface ProjectItem {
   platform: string;
   mockupId: ProjectMockupId;
   problem: string;
-  decision: string;
+  /** Optional: omit when there's no specific decision worth calling out. */
+  decision?: string;
   shipped: string;
   tech: string[];
   links: ProjectLink[];
@@ -213,7 +217,7 @@ export const siteContent = {
         role: 'Senior Mobile Engineer',
         dates: 'Oct 2023 to Jan 2026',
         highlights: [
-          'Delivered two Flutter apps live on iOS and Android: Whoosh for customers and Whoosh Rider for delivery riders.',
+          'Delivered two Flutter apps for Android and iOS: Whoosh for customers and Whoosh Rider for delivery riders.',
           'Built real-time tracking and geo-fencing for riders, with Firebase Cloud Messaging for delivery updates.',
           'Integrated in-app chat between customers and riders, and shipped features driven by user feedback.',
         ],
@@ -299,8 +303,11 @@ export const siteContent = {
           'Live iOS and Android releases with debounced search, CustomPainter spotlight onboarding controlled via Remote Config, native scheduled app icon switching, and faster parallel Bitbucket Pipelines builds.',
         tech: ['Flutter', 'BLoC/Cubit', 'Swift & Kotlin', 'Firebase App Check', 'GA4', 'Klaviyo', 'AppsFlyer'],
         links: [
-          { label: 'App Store', url: '[APP_STORE_LINK]' },
-          { label: 'Play Store', url: '[PLAY_STORE_LINK]' },
+          {
+            label: 'App Store',
+            url: 'https://apps.apple.com/us/app/nology-store-%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A-%D8%B3%D8%AA%D9%88%D8%B1/id1476822418',
+          },
+          { label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=com.nologystore.nology' },
         ],
       },
       {
@@ -320,6 +327,25 @@ export const siteContent = {
         links: [],
       },
       {
+        id: 'whoosh',
+        title: 'Whoosh',
+        subtitle: 'Logistics apps for customers and delivery riders',
+        category: 'Production',
+        platform: 'Android & iOS',
+        mockupId: 'whoosh',
+        problem:
+          'A delivery service only works when both sides move in step: customers need to send packages and follow them, and riders need to manage pickups and drop-offs on the move.',
+        decision:
+          'Built two focused Flutter apps, one for customers and one for riders, integrated third-party APIs, used Firebase Cloud Messaging for real-time updates, and added in-app chat so customers and riders could talk directly.',
+        shipped:
+          'Whoosh and Whoosh Rider for Android and iOS, with real-time tracking and geo-fencing for riders. Both are live on Google Play.',
+        tech: ['Flutter', 'Dart', 'Firebase Cloud Messaging', 'In-app chat', 'Geo-fencing', 'Third-party APIs'],
+        links: [
+          { label: 'Whoosh on Play Store', url: 'https://play.google.com/store/apps/details?id=com.whoosh.user' },
+          { label: 'Whoosh Rider on Play Store', url: 'https://play.google.com/store/apps/details?id=com.whoosh.rider' },
+        ],
+      },
+      {
         id: 'nesterverify',
         title: 'NesterVerify',
         subtitle: 'Business verification mobile app',
@@ -329,13 +355,44 @@ export const siteContent = {
         problem:
           'Business verification workflows demand clear step-by-step data capture and dependable mobile state so checks are completed accurately in the field.',
         decision:
-          'Structured the mobile verification flow around clear validation, predictable navigation, and clean separation between UI and API layers. [Add specific product decision]',
+          'Structured the mobile verification flow around clear validation, predictable navigation, and clean separation between UI and API layers.',
         shipped:
-          'Production mobile application supporting end-to-end business verification workflows. [Add launch or scope detail]',
+          'Production mobile application supporting end-to-end business verification workflows.',
         tech: ['Flutter', 'Dart', 'REST/Dio', 'Mobile Verification'],
         links: [
-          { label: 'Project link', url: '[NESTERVERIFY_LINK]' },
+          { label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=com.ngss.nesterVerify' },
         ],
+      },
+      {
+        id: 'greamit',
+        title: 'Greamit',
+        subtitle: 'Interest-based social app',
+        category: 'Production',
+        platform: 'iOS & Android',
+        mockupId: 'greamit',
+        problem:
+          'People want one simple place to discover, create, and share content around the topics they actually care about.',
+        shipped:
+          'An easy-to-use social app for viewing, creating, and sharing content based on each user\'s interests, live on the App Store and Google Play.',
+        tech: ['Flutter', 'Dart', 'Social feed', 'Interest-based content'],
+        links: [
+          { label: 'App Store', url: 'https://apps.apple.com/ng/app/greamit/id6504239079' },
+          { label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=com.greamit.app' },
+        ],
+      },
+      {
+        id: 'striit',
+        title: 'Striit',
+        subtitle: 'Parking assistance app',
+        category: 'Production',
+        platform: 'iOS',
+        mockupId: 'striit',
+        problem: 'Parking in busy areas costs drivers more time and money than it should.',
+        decision:
+          'Used Firebase for authentication, real-time data storage, and user notifications so parking information stays current for every driver.',
+        shipped: 'A parking assistance app on the App Store that helps drivers reduce what they spend on parking.',
+        tech: ['Flutter', 'Dart', 'Firebase Authentication', 'Real-time data', 'Push notifications'],
+        links: [{ label: 'App Store', url: 'https://apps.apple.com/us/app/striit/id6446465864' }],
       },
       {
         id: 'emc-portal',
@@ -351,10 +408,7 @@ export const siteContent = {
         shipped:
           'A static web portal hosted on GitHub Pages that automates daily WhatsApp reminders to teachers with minimal maintenance.',
         tech: ['Dart', 'Jaspr', 'Google Sheets API', 'WhatsApp Automation', 'GitHub Pages'],
-        links: [
-          { label: 'Live site', url: '[EMC_PORTAL_URL]' },
-          { label: 'Source', url: '[EMC_PORTAL_REPO]' },
-        ],
+        links: [], // Private project
       },
       {
         id: 'runway',
@@ -370,9 +424,7 @@ export const siteContent = {
         shipped:
           'A clean Flutter budgeting and financial runway app designed for everyday clarity rather than spreadsheet friction.',
         tech: ['Flutter', 'Dart', 'Personal Finance', 'Custom UI'],
-        links: [
-          { label: 'Source', url: '[RUNWAY_REPO]' },
-        ],
+        links: [], // Private for now; add { label: 'Source', url: '...' } when public
       },
     ] as ProjectItem[],
   },
@@ -390,8 +442,10 @@ export const siteContent = {
         summary:
           'Talk focused on protecting API keys and securing AI features in production Flutter builds on Android and iOS.',
         links: [
-          { label: 'Slides', url: '[SLIDES_LINK]' },
-          { label: 'Recording', url: '[RECORDING_LINK]' },
+          {
+            label: 'Slides',
+            url: 'https://docs.google.com/presentation/d/1lDFFmtZmXwr1KF3Vdt2yOhP8KquARl3tsy5QF6HgdTQ/edit?usp=sharing',
+          },
         ],
       },
       {

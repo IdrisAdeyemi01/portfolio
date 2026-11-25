@@ -101,14 +101,16 @@ export function FeaturedWork() {
                         </dd>
                       </div>
 
-                      <div className="grid grid-cols-1 gap-1 sm:grid-cols-12 sm:gap-4">
-                        <dt className="font-mono text-xs font-medium text-subtle sm:col-span-2 sm:pt-0.5">
-                          Decision
-                        </dt>
-                        <dd className="text-[14.5px] leading-relaxed text-body sm:col-span-10">
-                          {project.decision}
-                        </dd>
-                      </div>
+                      {project.decision && (
+                        <div className="grid grid-cols-1 gap-1 sm:grid-cols-12 sm:gap-4">
+                          <dt className="font-mono text-xs font-medium text-subtle sm:col-span-2 sm:pt-0.5">
+                            Decision
+                          </dt>
+                          <dd className="text-[14.5px] leading-relaxed text-body sm:col-span-10">
+                            {project.decision}
+                          </dd>
+                        </div>
+                      )}
 
                       <div className="grid grid-cols-1 gap-1 sm:grid-cols-12 sm:gap-4">
                         <dt className="font-mono text-xs font-medium text-accent sm:col-span-2 sm:pt-0.5">

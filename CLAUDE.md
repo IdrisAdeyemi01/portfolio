@@ -108,13 +108,14 @@ Use them with any utility: `bg-surface`, `text-muted`, `border-line`, `hover:tex
 
 ## Leftovers from the AI Studio scaffold
 
-This was generated in Google AI Studio. Not used by the site and safe to clean up when convenient: `@google/genai`, `express`, `dotenv`, `@types/express`, `tsx` in `package.json`; `.env.example` (Gemini key); `metadata.json`; the AI Studio `README.md`; the `DISABLE_HMR` logic and `copy-unbundled-src-assets` plugin in `vite.config.ts`. The package name is still `react-example`.
+This was generated in Google AI Studio. Not used by the site and safe to clean up when convenient: `@google/genai`, `express`, `dotenv`, `@types/express`, `tsx` in `package.json`; `.env.example` (Gemini key); `metadata.json`; the `DISABLE_HMR` logic and `copy-unbundled-src-assets` plugin in `vite.config.ts`. The package name is still `react-example`.
 
-## Open TODOs (content Idris needs to supply)
+## Open TODOs
 
-- `[DATES]` for every role; highlights for Mabilla Group, ErrandPay, Whoosh, Greamit, NesterVerify.
-- `[CV_LINK]`, `[PHOTO_URL]`.
-- Store links for Nology Mobile; links for NesterVerify, EMC Portal (site + repo), Runway repo.
-- DevFest Ibadan 2026 slides and recording links.
-- LinkedIn URL in `content.ts` and `index.html` should be confirmed.
-- Deployment target, domain, `og:image`, canonical URL.
+All placeholders were filled or removed on 2026-11-25. Remaining items:
+
+- Runway repo is private for now. When public, add `{ label: 'Source', url: '...' }` to its `links` in `content.ts`.
+- EMC Portal is private (no links by design).
+- Whoosh and Whoosh Rider are no longer on the App Store; only their Play Store links are used. Don't describe them as live on iOS.
+- Photo and CV are Google Drive links; they must stay shared as "Anyone with the link". Consider self-hosting the photo in `public/`.
+- `og:image` and canonical URL in `index.html` (live at https://idris-portfolio-omega.vercel.app).

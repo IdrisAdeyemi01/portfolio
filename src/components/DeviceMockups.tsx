@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import {
+  Bell,
+  Car,
   CheckCircle2,
+  Heart,
   Layers,
+  MapPin,
+  MessageCircle,
   Moon,
   Navigation,
+  Package,
   Search,
   Send,
   ShieldCheck,
+  Sparkles,
   Sun,
+  Users,
   Wallet,
 } from 'lucide-react';
 import type { ProjectMockupId } from '../content';
@@ -330,6 +338,158 @@ function RunwayMockup() {
   );
 }
 
+function WhooshMockup() {
+  return (
+    <PhoneFrame label="Phone preview of Whoosh delivery tracking with rider chat">
+      <div className="space-y-2.5">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-semibold tracking-tight text-white">Whoosh</span>
+          <Package className="h-3.5 w-3.5 text-[#38A3FF]" aria-hidden="true" />
+        </div>
+
+        {/* Live route map */}
+        <div className="relative h-24 overflow-hidden rounded-xl border border-[#1E2B3A] bg-[#101926]">
+          <svg viewBox="0 0 200 96" className="absolute inset-0 h-full w-full" aria-hidden="true">
+            <path
+              d="M18 78 C 60 70, 70 30, 110 34 S 170 20, 184 14"
+              fill="none"
+              stroke="#38A3FF"
+              strokeWidth="2.5"
+              strokeDasharray="5 4"
+              strokeLinecap="round"
+            />
+            <circle cx="18" cy="78" r="4" fill="#38A3FF" />
+            <circle cx="110" cy="34" r="5" fill="#0B0F15" stroke="#38A3FF" strokeWidth="2" />
+            <circle cx="184" cy="14" r="4" fill="#E6EDF5" />
+          </svg>
+          <span className="absolute bottom-2 left-2.5 font-mono text-[8.5px] text-[#38A3FF]">LIVE TRACKING</span>
+        </div>
+
+        <div className="flex items-center justify-between rounded-lg border border-[#1B2430] bg-[#10151E] px-2.5 py-2">
+          <div className="flex items-center gap-1.5">
+            <MapPin className="h-3 w-3 text-[#38A3FF]" aria-hidden="true" />
+            <span className="text-[10px] text-slate-200">Rider entered pickup zone</span>
+          </div>
+          <span className="font-mono text-[8.5px] text-slate-400">Geo-fence</span>
+        </div>
+
+        {/* Chat bubbles */}
+        <div className="space-y-1.5 rounded-xl border border-[#1B2430] bg-[#10151E] p-2.5">
+          <div className="flex items-center gap-1.5">
+            <MessageCircle className="h-3 w-3 text-[#38A3FF]" aria-hidden="true" />
+            <span className="font-mono text-[8.5px] text-slate-400">IN-APP CHAT</span>
+          </div>
+          <p className="w-fit max-w-[80%] rounded-lg bg-[#1A2433] px-2 py-1 text-[9.5px] text-slate-200">
+            On my way to you
+          </p>
+          <p className="ml-auto w-fit max-w-[80%] rounded-lg bg-[#0468D7] px-2 py-1 text-[9.5px] text-white">
+            Great, I&apos;m at the gate
+          </p>
+        </div>
+      </div>
+    </PhoneFrame>
+  );
+}
+
+function GreamitMockup() {
+  return (
+    <PhoneFrame label="Phone preview of Greamit interest-based social feed">
+      <div className="space-y-2.5">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-semibold tracking-tight text-white">Greamit</span>
+          <Sparkles className="h-3.5 w-3.5 text-[#38A3FF]" aria-hidden="true" />
+        </div>
+
+        {/* Interest chips */}
+        <div className="flex flex-wrap gap-1.5">
+          {['Tech', 'Design', 'Music', 'Sports'].map((tag, idx) => (
+            <span
+              key={tag}
+              className={`rounded-full border px-2 py-0.5 font-mono text-[8.5px] ${
+                idx === 0
+                  ? 'border-[#38A3FF]/60 bg-[#38A3FF]/15 text-[#38A3FF]'
+                  : 'border-[#222D3C] text-slate-400'
+              }`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Feed posts */}
+        {['For your interests', 'From people you follow'].map((caption, idx) => (
+          <div key={caption} className="rounded-xl border border-[#1B2430] bg-[#10151E] p-2.5">
+            <div className="flex items-center gap-1.5">
+              <span className="h-4 w-4 rounded-full bg-[#1A2433]" />
+              <span className="h-1.5 w-14 rounded bg-slate-700" />
+            </div>
+            <div className={`mt-2 rounded-md bg-[#1A2433] ${idx === 0 ? 'h-14' : 'h-8'}`} />
+            <div className="mt-1.5 flex items-center justify-between">
+              <span className="font-mono text-[8.5px] text-slate-400">{caption}</span>
+              <Heart className="h-3 w-3 text-[#38A3FF]" aria-hidden="true" />
+            </div>
+          </div>
+        ))}
+
+        <div className="flex items-center justify-center gap-1.5 rounded-lg bg-[#0468D7] py-1.5 text-[10px] font-medium text-white">
+          <Users className="h-3 w-3" aria-hidden="true" />
+          <span>Create &amp; share</span>
+        </div>
+      </div>
+    </PhoneFrame>
+  );
+}
+
+function StriitMockup() {
+  return (
+    <PhoneFrame label="Phone preview of Striit parking assistance app">
+      <div className="space-y-2.5">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-semibold tracking-tight text-white">Striit</span>
+          <Car className="h-3.5 w-3.5 text-[#38A3FF]" aria-hidden="true" />
+        </div>
+
+        <div className="rounded-xl border border-[#1D2D40] bg-[#101926] p-3">
+          <p className="font-mono text-[8.5px] text-[#38A3FF]">PARKING NEARBY</p>
+          <p className="mt-1 text-[11px] font-semibold text-white">Find a spot that fits your budget</p>
+          {/* Parking bay grid */}
+          <div className="mt-2.5 grid grid-cols-4 gap-1" aria-hidden="true">
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <span
+                key={idx}
+                className={`h-5 rounded-sm border ${
+                  idx === 2 || idx === 5
+                    ? 'border-[#38A3FF] bg-[#38A3FF]/20'
+                    : 'border-[#222D3C] bg-[#121822]'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-1.5">
+          {[
+            { label: 'Signed in securely', note: 'Firebase Auth' },
+            { label: 'Spot availability', note: 'Real-time' },
+          ].map((row) => (
+            <div
+              key={row.label}
+              className="flex items-center justify-between rounded-lg border border-[#1B2430] bg-[#10151E] px-2.5 py-2"
+            >
+              <span className="text-[10px] text-slate-200">{row.label}</span>
+              <span className="font-mono text-[8.5px] text-[#38A3FF]">{row.note}</span>
+            </div>
+          ))}
+          <div className="flex items-center gap-2 rounded-lg border border-[#1B2430] bg-[#10151E] px-2.5 py-2">
+            <Bell className="h-3 w-3 shrink-0 text-[#38A3FF]" aria-hidden="true" />
+            <span className="text-[10px] text-slate-200">Notifications when it matters</span>
+          </div>
+        </div>
+      </div>
+    </PhoneFrame>
+  );
+}
+
 function EmcPortalMockup() {
   return (
     <div
@@ -392,6 +552,12 @@ export function DeviceMockup({ mockupId }: DeviceMockupProps) {
       return <KabsaMockup />;
     case 'nesterverify':
       return <NesterVerifyMockup />;
+    case 'whoosh':
+      return <WhooshMockup />;
+    case 'greamit':
+      return <GreamitMockup />;
+    case 'striit':
+      return <StriitMockup />;
     case 'emc-portal':
       return <EmcPortalMockup />;
     case 'runway':
