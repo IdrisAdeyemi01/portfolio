@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { isPlaceholderValue, siteContent, type ProjectCategory } from '../content';
 import { DeviceMockup } from './DeviceMockups';
+import { TiltCard } from './MotionBits';
 import { Reveal } from './Reveal';
 
 type WorkFilter = 'All' | ProjectCategory;
@@ -52,13 +54,19 @@ export function FeaturedWork() {
                     type="button"
                     onClick={() => setFilter(option)}
                     aria-pressed={active}
-                    className={`min-h-[36px] shrink-0 whitespace-nowrap rounded-md px-3.5 py-1.5 text-xs font-medium transition-colors duration-150 ${
-                      active
-                        ? 'bg-surface text-ink shadow-xs'
-                        : 'text-muted hover:text-ink'
+                    className={`relative min-h-[36px] shrink-0 whitespace-nowrap rounded-md px-3.5 py-1.5 text-xs font-medium transition-colors duration-150 ${
+                      active ? 'text-ink' : 'text-muted hover:text-ink'
                     }`}
                   >
-                    {option}
+                    {active && (
+                      <motion.span
+                        layoutId="work-filter"
+                        aria-hidden="true"
+                        className="absolute inset-0 rounded-md bg-surface shadow-xs"
+                        transition={{ type: 'spring', stiffness: 450, damping: 34 }}
+                      />
+                    )}
+                    <span className="relative">{option}</span>
                   </button>
                 );
               })}
@@ -69,7 +77,8 @@ export function FeaturedWork() {
         <div className="mt-10 space-y-6">
           {visibleProjects.map((project, index) => (
             <Reveal key={project.id} delay={Math.min(index * 0.04, 0.14)}>
-              <article className="group rounded-2xl border border-line bg-surface p-5 transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-line-strong sm:p-7">
+              <TiltCard className="rounded-2xl">
+              <article className="group relative rounded-2xl border border-line bg-surface p-5 transition-colors duration-200 hover:border-line-strong sm:p-7">
                 <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-10">
                   {/* Device preview column */}
                   <div className="flex items-center justify-center rounded-xl border border-line-soft bg-surface-2 px-4 py-7 lg:col-span-4">
@@ -163,6 +172,7 @@ export function FeaturedWork() {
                   </div>
                 </div>
               </article>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

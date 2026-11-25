@@ -1,4 +1,5 @@
 import { useRef, type KeyboardEvent } from 'react';
+import { motion } from 'motion/react';
 import { Feather, Moon, Sun, type LucideIcon } from 'lucide-react';
 import { THEMES, type ThemeId } from '../theme';
 
@@ -54,13 +55,27 @@ export function ThemeSwitcher({ theme, onChange }: ThemeSwitcherProps) {
             title={option.label}
             tabIndex={active ? 0 : -1}
             onClick={() => onChange(option.id)}
-            className={`inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors duration-150 ${
-              active
-                ? 'bg-accent-solid text-on-accent'
-                : 'text-muted hover:bg-surface-hover hover:text-ink'
+            className={`relative inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors duration-150 ${
+              active ? 'text-on-accent' : 'text-muted hover:bg-surface-hover hover:text-ink'
             }`}
           >
-            <Icon className="h-4 w-4" aria-hidden="true" />
+            {active && (
+              <motion.span
+                layoutId="theme-pill"
+                aria-hidden="true"
+                className="absolute inset-0 rounded-md bg-accent-solid"
+                transition={{ type: 'spring', stiffness: 500, damping: 32 }}
+              />
+            )}
+            <motion.span
+              key={active ? 'on' : 'off'}
+              initial={active ? { rotate: -90, scale: 0.6 } : false}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 16 }}
+              className="relative"
+            >
+              <Icon className="h-4 w-4" aria-hidden="true" />
+            </motion.span>
           </button>
         );
       })}

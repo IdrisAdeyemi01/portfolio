@@ -17,7 +17,7 @@ export function SpeakingAndAchievements() {
           <Reveal>
             <div className="max-w-2xl">
               <p className="font-mono text-xs font-medium text-accent">
-                04. {speaking.heading}
+                05. {speaking.heading}
               </p>
               <h2
                 id="speaking-heading"
@@ -103,7 +103,7 @@ export function SpeakingAndAchievements() {
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-4">
                 <p className="font-mono text-xs font-medium text-accent">
-                  05. {achievements.heading}
+                  06. {achievements.heading}
                 </p>
                 <h2
                   id="achievements-heading"

@@ -1,17 +1,20 @@
 import { useState } from 'react';
-import { Check, Copy, Mail } from 'lucide-react';
+import { Check, Copy, Mail, Sparkles } from 'lucide-react';
 import { siteContent } from '../content';
+import { useQuest } from '../quest/QuestContext';
 import { Reveal } from './Reveal';
 import { SocialIcon } from './SocialIcons';
 
 export function ContactFooter() {
   const { contact, meta, socials } = siteContent;
   const [copied, setCopied] = useState(false);
+  const { unlock, hidden, setHidden } = useQuest();
 
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText(meta.email);
       setCopied(true);
+      unlock('say-hi');
       window.setTimeout(() => setCopied(false), 2200);
     } catch {
       setCopied(false);
@@ -25,7 +28,7 @@ export function ContactFooter() {
           <Reveal>
             <div className="rounded-2xl border border-line bg-surface p-6 sm:p-10 lg:p-12">
               <p className="font-mono text-xs font-medium text-accent">
-                06. {contact.heading}
+                07. {contact.heading}
               </p>
 
               <h2
@@ -42,6 +45,7 @@ export function ContactFooter() {
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a
                   href={`mailto:${meta.email}`}
+                  onClick={() => unlock('say-hi')}
                   className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-accent-solid px-5 py-2.5 text-sm font-medium text-on-accent transition-all duration-150 hover:bg-accent-solid-hover active:scale-[0.99]"
                 >
                   <Mail className="h-4 w-4" aria-hidden="true" />
@@ -74,6 +78,7 @@ export function ContactFooter() {
                     <a
                       key={social.id}
                       href={social.href}
+                      onClick={social.id === 'email' ? () => unlock('say-hi') : undefined}
                       target={isExternal ? '_blank' : undefined}
                       rel={isExternal ? 'noopener noreferrer' : undefined}
                       className="inline-flex min-h-[40px] items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
@@ -92,7 +97,19 @@ export function ContactFooter() {
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-7 text-xs text-subtle sm:flex-row sm:px-8">
           <p>{meta.copyright}</p>
-          <p className="font-mono">{meta.location}</p>
+          <div className="flex items-center gap-4">
+            {hidden && (
+              <button
+                type="button"
+                onClick={() => setHidden(false)}
+                className="inline-flex items-center gap-1.5 font-mono text-accent hover:text-accent-hover"
+              >
+                <Sparkles className="h-3 w-3" aria-hidden="true" />
+                Play the Explorer quest
+              </button>
+            )}
+            <p className="font-mono">{meta.location}</p>
+          </div>
         </div>
       </footer>
     </>

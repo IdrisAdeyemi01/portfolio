@@ -44,6 +44,9 @@
   --color-accent-solid-hover: var(--t-accent-solid-hover);
   --color-on-accent: var(--t-on-accent);
 
+  /* Status (e.g. "Open to work" dot) */
+  --color-success: var(--t-success);
+
   /* Decorative ambient glow (hero placeholder) */
   --color-glow: var(--t-glow);
 }
@@ -71,6 +74,7 @@
   --t-on-accent: #ffffff;
   --t-grid-line: rgba(56, 163, 255, 0.05);
   --t-glow: rgba(56, 163, 255, 0.15);
+  --t-success: #3ddc97;
 }
 
 :root[data-theme="light"] {
@@ -95,6 +99,7 @@
   --t-on-accent: #ffffff;
   --t-grid-line: rgba(4, 104, 215, 0.08);
   --t-glow: rgba(4, 104, 215, 0.14);
+  --t-success: #16a34a;
 }
 
 :root[data-theme="paper"] {
@@ -119,6 +124,7 @@
   --t-on-accent: #fffdf8;
   --t-grid-line: rgba(2, 86, 155, 0.08);
   --t-glow: rgba(214, 170, 96, 0.22);
+  --t-success: #2f855a;
 }
 
 @layer base {
@@ -170,6 +176,15 @@
     outline-offset: 3px;
     border-radius: 6px;
   }
+}
+
+/* Gentle idle float for phone mockups (stilled by the reduced-motion rule above). */
+@keyframes phone-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.phone-float {
+  animation: phone-float 6s ease-in-out infinite;
 }
 
 .text-balance {

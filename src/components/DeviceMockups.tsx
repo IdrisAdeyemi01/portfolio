@@ -19,6 +19,7 @@ import {
   Wallet,
 } from 'lucide-react';
 import type { ProjectMockupId } from '../content';
+import { useQuest } from '../quest/QuestContext';
 
 interface DeviceMockupProps {
   mockupId: ProjectMockupId;
@@ -37,7 +38,7 @@ function PhoneFrame({
     <div
       role="img"
       aria-label={label}
-      className="mx-auto w-full max-w-[232px] select-none rounded-[30px] border border-line-strong bg-[#0D1117] p-2 shadow-sm"
+      className="phone-float mx-auto w-full max-w-[232px] select-none rounded-[30px] border border-line-strong bg-[#0D1117] p-2 shadow-xl shadow-black/20"
     >
       <div
         className={`relative overflow-hidden rounded-[22px] border ${
@@ -146,6 +147,11 @@ function NologyMobileMockup() {
 
 function KabsaMockup() {
   const [previewDark, setPreviewDark] = useState(true);
+  const { unlock } = useQuest();
+  const flip = (dark: boolean) => {
+    setPreviewDark(dark);
+    if (dark !== previewDark) unlock('night-and-day');
+  };
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -224,7 +230,7 @@ function KabsaMockup() {
       >
         <button
           type="button"
-          onClick={() => setPreviewDark(true)}
+          onClick={() => flip(true)}
           aria-pressed={previewDark}
           className={`inline-flex min-h-[32px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
             previewDark
@@ -237,7 +243,7 @@ function KabsaMockup() {
         </button>
         <button
           type="button"
-          onClick={() => setPreviewDark(false)}
+          onClick={() => flip(false)}
           aria-pressed={!previewDark}
           className={`inline-flex min-h-[32px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
             !previewDark

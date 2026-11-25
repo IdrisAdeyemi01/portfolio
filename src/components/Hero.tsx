@@ -1,75 +1,116 @@
 import { useState } from 'react';
+import { motion, useReducedMotion, type Variants } from 'motion/react';
 import { ArrowDownRight, Download, Mail } from 'lucide-react';
 import { isPlaceholderValue, siteContent } from '../content';
+import { useQuest } from '../quest/QuestContext';
+import { CountUp } from './MotionBits';
 import { SocialIcon } from './SocialIcons';
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const container: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+const item: Variants = {
+  hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
+  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease } },
+};
+const word: Variants = {
+  hidden: { opacity: 0, y: '0.6em', rotate: 2 },
+  show: { opacity: 1, y: 0, rotate: 0, transition: { duration: 0.7, ease } },
+};
+
 export function Hero() {
-  const { hero, socials, meta } = siteContent;
+  const { hero, socials, meta, stats } = siteContent;
+  const { unlock } = useQuest();
+  const reduce = useReducedMotion();
   const [photoError, setPhotoError] = useState(false);
   const [cvNoticeVisible, setCvNoticeVisible] = useState(false);
 
   const hasPhoto = !isPlaceholderValue(hero.photoUrl) && !photoError;
   const hasRealCv = !isPlaceholderValue(hero.secondaryCta.url);
-
-  const handleCvClick = () => {
-    if (!hasRealCv) {
-      setCvNoticeVisible((prev) => !prev);
-    }
-  };
+  const initial = reduce ? 'show' : 'hidden';
 
   return (
-    <section
-      id="hero"
-      aria-labelledby="hero-heading"
-      className="scroll-mt-20 border-b border-line"
-    >
-      <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16 lg:py-20">
+    <section id="hero" aria-labelledby="hero-heading" className="scroll-mt-20 border-b border-line">
+      <div className="mx-auto max-w-6xl px-5 pb-12 pt-10 sm:px-8 sm:pb-16 sm:pt-14 lg:pt-20">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Left column: primary identity and actions */}
-          <div className="lg:col-span-7">
-            <p className="font-mono text-xs font-medium tracking-wide text-accent sm:text-[13px]">
-              {hero.title}
-            </p>
+          <motion.div variants={container} initial={initial} animate="show" className="lg:col-span-7">
+            {/* Role pills */}
+            <motion.ul variants={item} className="flex flex-wrap gap-2" aria-label="At a glance">
+              {hero.pills.map((pill, i) => (
+                <li
+                  key={pill}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
+                    i === 0 ? 'border-accent/40 bg-accent/10 text-accent' : 'border-line bg-surface text-muted'
+                  }`}
+                >
+                  {i === 0 && (
+                    <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                    </span>
+                  )}
+                  {pill}
+                </li>
+              ))}
+            </motion.ul>
+
+            <motion.p variants={item} className="mt-6 font-mono text-sm text-accent">
+              {hero.greeting}
+            </motion.p>
 
             <h1
               id="hero-heading"
-              className="mt-3 text-balance text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-[3.5rem] lg:leading-[1.08]"
+              className="mt-2 text-balance text-[2.5rem] font-bold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.25rem]"
             >
-              {hero.name}
+              <span className="sr-only">{hero.pitch}</span>
+              <motion.span variants={container} aria-hidden="true" className="inline">
+                {hero.pitch.split(' ').map((w, i) => (
+                  <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+                    <motion.span variants={word} className="inline-block">
+                      {w === 'CEO.' ? <span className="text-accent">{w}</span> : w}
+                    </motion.span>
+                    {' '}
+                  </span>
+                ))}
+              </motion.span>
             </h1>
 
-            <p className="mt-4 max-w-xl text-balance text-xl font-medium leading-snug text-ink-2 sm:text-2xl">
-              {hero.pitch}
-            </p>
-
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted sm:text-base">
+            <motion.p variants={item} className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted sm:text-base">
               {hero.subcopy}
-            </p>
+            </motion.p>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
+            {/* CTAs */}
+            <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
+              <motion.a
                 href={hero.primaryCta.href}
-                className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-accent-solid px-5 py-2.5 text-sm font-medium text-on-accent transition-all duration-150 hover:bg-accent-solid-hover active:scale-[0.99]"
+                whileHover={reduce ? undefined : { y: -2 }}
+                whileTap={reduce ? undefined : { scale: 0.97 }}
+                className="group inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-accent-solid px-5 py-2.5 text-sm font-medium text-on-accent shadow-sm shadow-accent/20 transition-colors duration-150 hover:bg-accent-solid-hover"
               >
                 <span>{hero.primaryCta.label}</span>
-                <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+                <ArrowDownRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5" aria-hidden="true" />
+              </motion.a>
 
               {hasRealCv ? (
-                <a
+                <motion.a
                   href={hero.secondaryCta.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => unlock('recruiter-mode')}
+                  whileHover={reduce ? undefined : { y: -2 }}
+                  whileTap={reduce ? undefined : { scale: 0.97 }}
                   className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-line-strong bg-surface px-5 py-2.5 text-sm font-medium text-ink-2 transition-colors duration-150 hover:border-subtle hover:bg-surface-hover"
                 >
                   <Download className="h-4 w-4" aria-hidden="true" />
                   <span>{hero.secondaryCta.label}</span>
-                </a>
+                </motion.a>
               ) : (
                 <button
                   type="button"
-                  onClick={handleCvClick}
+                  onClick={() => setCvNoticeVisible((prev) => !prev)}
                   aria-expanded={cvNoticeVisible}
                   className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-line-strong bg-surface px-5 py-2.5 text-sm font-medium text-ink-2 transition-colors duration-150 hover:border-subtle hover:bg-surface-hover"
                 >
@@ -77,7 +118,7 @@ export function Hero() {
                   <span>{hero.secondaryCta.label}</span>
                 </button>
               )}
-            </div>
+            </motion.div>
 
             {cvNoticeVisible && !hasRealCv && (
               <div
@@ -96,34 +137,46 @@ export function Hero() {
               </div>
             )}
 
-            {/* Social icon links */}
-            <div className="mt-7 flex items-center gap-4">
+            {/* Socials */}
+            <motion.div variants={item} className="mt-7 flex items-center gap-3">
               {socials.map((social) => {
                 const isExternal = social.id !== 'email';
                 return (
-                  <a
+                  <motion.a
                     key={social.id}
                     href={social.href}
                     target={isExternal ? '_blank' : undefined}
                     rel={isExternal ? 'noopener noreferrer' : undefined}
+                    onClick={social.id === 'email' ? () => unlock('say-hi') : undefined}
                     aria-label={`${social.label}: ${social.handle}`}
                     title={social.handle}
+                    whileHover={reduce ? undefined : { y: -3, rotate: -4 }}
+                    whileTap={reduce ? undefined : { scale: 0.92 }}
                     className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line bg-surface text-muted transition-colors duration-150 hover:border-accent/50 hover:text-accent"
                   >
                     <SocialIcon id={social.id} />
-                  </a>
+                  </motion.a>
                 );
               })}
-              <span className="hidden font-mono text-xs text-subtle sm:inline">
-                {meta.location}
-              </span>
-            </div>
-          </div>
+              <span className="ml-1 hidden font-mono text-xs text-subtle sm:inline">{meta.location}</span>
+            </motion.div>
+          </motion.div>
 
-          {/* Right column: Professional photo / engineered placeholder avatar */}
-          <div className="flex justify-center lg:col-span-5 lg:justify-end">
-            <div className="relative w-full max-w-[320px] sm:max-w-[340px]">
-              <div className="overflow-hidden rounded-2xl border border-line bg-surface p-3">
+          {/* Photo */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, scale: 0.94, rotate: 2 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.9, delay: 0.25, ease }}
+            className="flex justify-center lg:col-span-5 lg:justify-end"
+          >
+            <div className="relative w-full max-w-[320px] sm:max-w-[360px]">
+              {/* Soft accent halo behind the frame */}
+              <div aria-hidden="true" className="absolute -inset-6 -z-0 rounded-[2rem] bg-glow blur-3xl" />
+              <motion.div
+                whileHover={reduce ? undefined : { rotate: -1.5, scale: 1.015 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+                className="relative overflow-hidden rounded-2xl border border-line bg-surface p-3 shadow-xl shadow-black/5"
+              >
                 <div className="relative aspect-[4/4.3] w-full overflow-hidden rounded-xl bg-surface-2">
                   {hasPhoto ? (
                     <img
@@ -134,60 +187,42 @@ export function Hero() {
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <div
-                      role="img"
-                      aria-label={hero.photoAlt}
-                      className="relative flex h-full w-full flex-col justify-between overflow-hidden p-6"
-                    >
-                      {/* Subtle architectural coordinate grid */}
+                    <div role="img" aria-label={hero.photoAlt} className="relative flex h-full w-full items-center justify-center">
                       <div aria-hidden="true" className="bg-blueprint pointer-events-none absolute inset-0" />
-
-                      {/* Subtle Flutter-blue ambient corner gradient */}
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-glow blur-2xl"
-                      />
-
-                      <div className="relative flex items-center justify-between font-mono text-[11px] text-subtle">
-                        <span>LAGOS · NG</span>
-                        <span>FLUTTER · MOBILE</span>
-                      </div>
-
-                      {/* Clean centered monogram */}
-                      <div className="relative my-auto flex flex-col items-center justify-center py-6">
-                        <div className="flex h-28 w-28 items-center justify-center rounded-2xl border border-line bg-surface/90 shadow-sm">
-                          <span className="text-4xl font-bold tracking-tight text-ink">
-                            I<span className="text-accent">I</span>
-                          </span>
-                        </div>
-                        <p className="mt-4 font-mono text-[11px] text-subtle">
-                          [PHOTO_URL]
-                        </p>
-                      </div>
-
-                      <div className="relative flex items-center justify-between border-t border-line pt-3 font-mono text-[11px] text-muted">
-                        <span>iOS &amp; Android</span>
-                        <span className="tabular-nums">Since 2021</span>
-                      </div>
+                      <span className="relative text-5xl font-bold tracking-tight text-ink">
+                        I<span className="text-accent">I</span>
+                      </span>
                     </div>
                   )}
                 </div>
-              </div>
+                <div className="flex items-center justify-between px-1 pt-3 font-mono text-[11px] text-muted">
+                  <span>Lagos · NG</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-success" aria-hidden="true" />
+                    Open to work
+                  </span>
+                </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Full-width quick-scan recruiter strip below the hero split */}
-        <dl className="mt-12 grid grid-cols-1 gap-y-5 border-t border-line pt-8 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-4">
-          {hero.focusAreas.map((item) => (
-            <div key={item.label}>
-              <dt className="font-mono text-xs text-subtle">
-                {item.label}
-              </dt>
-              <dd className="mt-1 text-sm font-medium text-ink tabular-nums">
-                {item.value}
+        {/* Stats strip: real numbers, counted up on view */}
+        <dl className="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-10 lg:grid-cols-4">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={reduce ? false : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease }}
+              className="flex flex-col-reverse"
+            >
+              <dt className="mt-1.5 text-[13px] leading-snug text-subtle">{stat.label}</dt>
+              <dd className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+                <CountUp value={stat.value} suffix={stat.suffix} />
               </dd>
-            </div>
+            </motion.div>
           ))}
         </dl>
       </div>

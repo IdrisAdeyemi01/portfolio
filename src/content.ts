@@ -76,6 +76,50 @@ export interface SpeakingItem {
   links?: ProjectLink[];
 }
 
+export interface StoryChapter {
+  id: string;
+  label: string;
+  title: string;
+  body: string;
+  chips: string[];
+  isNow?: boolean;
+}
+
+export interface StatItem {
+  value: number;
+  suffix?: string;
+  label: string;
+}
+
+export interface ArticleItem {
+  id: string;
+  title: string;
+  summary: string;
+  platform: 'Dev.to' | 'Hashnode' | 'Medium';
+  date: string;
+  readMinutes: number;
+  url: string;
+  tags: string[];
+}
+
+export type QuestId =
+  | 'first-steps'
+  | 'completionist'
+  | 'shapeshifter'
+  | 'night-and-day'
+  | 'recruiter-mode'
+  | 'bookworm'
+  | 'say-hi'
+  | 'secret-flutter';
+
+export interface QuestItem {
+  id: QuestId;
+  title: string;
+  hint: string;
+  xp: number;
+  secret?: boolean;
+}
+
 export interface AchievementItem {
   id: string;
   year: string;
@@ -100,13 +144,16 @@ export const siteContent = {
   },
 
   nav: [
-    { label: 'About', href: '#about' },
+    { label: 'Story', href: '#story' },
     { label: 'Experience', href: '#experience' },
     { label: 'Work', href: '#work' },
+    { label: 'Writing', href: '#writing' },
     { label: 'Speaking', href: '#speaking' },
-    { label: 'Achievements', href: '#achievements' },
     { label: 'Contact', href: '#contact' },
   ] as NavItem[],
+
+  /** Every section id, in page order. Drives scroll-spy and the Explorer quest. */
+  sectionIds: ['hero', 'story', 'experience', 'work', 'writing', 'speaking', 'achievements', 'contact'],
 
   socials: [
     {
@@ -131,10 +178,12 @@ export const siteContent = {
 
   hero: {
     name: 'Idris Idris',
+    greeting: "Hi, I'm Idris Idris.",
     title: 'Software Engineer · Flutter & Mobile',
+    pills: ['Senior Mobile Engineer @ Nology Store', 'Flutter & Dart', 'Remote since 2021'],
     pitch: "I treat every feature I build like I'm its CEO.",
     subcopy:
-      'Shipping production Flutter apps on iOS and Android since 2021 across fintech, logistics, and consumer e-commerce. Focused on clean architecture, measurable analytics, security, and thoughtful code review.',
+      'I ship production Flutter apps on iOS and Android for fintech, logistics, and e-commerce teams. I own features end to end: architecture, analytics, security, and the code review that keeps it all honest. Open to remote senior roles, contracts, and AI evaluation or code review work.',
     primaryCta: {
       label: 'View my work',
       href: '#work',
@@ -146,21 +195,46 @@ export const siteContent = {
     // Google Drive image link (file must stay shared as "Anyone with the link").
     photoUrl: 'https://drive.google.com/thumbnail?id=1zmjAOpJDKVxhc_6NtPiDBxq2AXzv2SWH&sz=w800',
     photoAlt: 'Portrait of Idris Idris, Software Engineer specialising in Flutter and mobile',
-    focusAreas: [
-      { label: 'Primary stack', value: 'Flutter · Dart · iOS & Android' },
-      { label: 'Shipping since', value: '2021' },
-      { label: 'Location', value: 'Lagos, Nigeria (Remote)' },
-      { label: 'Also open to', value: 'AI evaluation & code review' },
-    ],
   },
 
+  /** Real, checkable numbers only. */
+  stats: [
+    { value: 5, suffix: '+', label: 'Years shipping Flutter apps' },
+    { value: 7, label: 'Remote teams shipped with' },
+    { value: 6, label: 'Apps live on the stores' },
+    { value: 5000, suffix: '+', label: 'Community support requests handled' },
+  ] as StatItem[],
+
   about: {
-    heading: 'About',
+    heading: 'Story',
     lead: 'From Chemical Engineering to owning production mobile systems end to end.',
-    paragraphs: [
-      'I studied Chemical Engineering before teaching myself software development, and I have been shipping production Flutter apps on iOS and Android professionally since 2021 across fintech, logistics, and consumer e-commerce.',
-      'My core philosophy is simple: I act as the mini-CEO of every feature and app I work on. Before writing a line of code, I study competitors in the space to find what should be better, then take full ownership end to end. I care about architecture, performance, analytics, and security, not just screens.',
-    ],
+    chapters: [
+      {
+        id: 'switch',
+        label: 'Chapter 1 · The switch',
+        title: 'A chemical engineer who fell for Flutter',
+        body:
+          'I studied Chemical Engineering at the University of Lagos and taught myself software on the side. By December 2020 I was writing beginner guides to Flutter, and in 2021 I took my first role as a mobile developer at Dynatech, turning complex designs into reusable Flutter components.',
+        chips: ['University of Lagos', 'Self-taught', 'Dynatech'],
+      },
+      {
+        id: 'builder',
+        label: 'Chapter 2 · The builder',
+        title: 'Shipping for fintech, logistics, and US teams, all remote',
+        body:
+          'Over the next few years I shipped production apps remotely: a KYC flow that halved verification time at ErrandPay, rider and customer apps with live tracking and chat at Whoosh, fintech features at Mabilla Group, and client apps for US-based teams at Dished Holdings and OkoroTech.',
+        chips: ['ErrandPay', 'Dished Holdings', 'OkoroTech', 'Mabilla Group', 'Whoosh'],
+      },
+      {
+        id: 'owner',
+        label: 'Chapter 3 · The owner',
+        title: "Every feature gets a CEO, and it's me",
+        body:
+          "Today I'm a Senior Mobile Engineer at Nology Store. Before I write a line of code, I study competitors to find what should be better, then own the feature end to end: architecture, analytics, security, and release. I also speak about it, most recently on securing AI features in Flutter at DevFest Ibadan 2026.",
+        chips: ['Nology Store', 'DevFest Ibadan 2026'],
+        isNow: true,
+      },
+    ] as StoryChapter[],
     skillsHeading: 'Core skills & tooling',
     skillGroups: [
       {
@@ -427,6 +501,54 @@ export const siteContent = {
         links: [], // Private for now; add { label: 'Source', url: '...' } when public
       },
     ] as ProjectItem[],
+  },
+
+  writing: {
+    heading: 'Writing',
+    lead: 'I learn in public, and write so others can skip the hard parts.',
+    profiles: [{ label: 'All on Dev.to', url: 'https://dev.to/idrisadeyemi01' }] as ProjectLink[],
+    items: [
+      {
+        id: 'null-safety-dart',
+        title: 'Deep Dive Into Null and Null Safety in Dart',
+        summary:
+          'Nullable and non-nullable types, every null-aware operator from ?? to ?[], and when to reach for the late keyword, all built on a simple classroom analogy.',
+        platform: 'Dev.to',
+        date: 'Aug 2022',
+        readMinutes: 9,
+        url: 'https://dev.to/idrisadeyemi01/deep-dive-into-null-safety-in-dart-k95',
+        tags: ['Dart', 'Flutter'],
+      },
+      {
+        id: 'beginners-guide-flutter',
+        title: "Beginners' Guide to Flutter",
+        summary:
+          'What Flutter and Dart are, why Flutter is worth picking as your main mobile framework, how to get started, and what to build once you know the basics.',
+        platform: 'Dev.to',
+        date: 'Dec 2020',
+        readMinutes: 4,
+        url: 'https://dev.to/idrisadeyemi01/beginners-guide-to-flutter-16de',
+        tags: ['Flutter', 'Beginners'],
+      },
+    ] as ArticleItem[],
+  },
+
+  /** Explorer quest: a light, optional game. Copy lives here; logic in src/quest. */
+  quest: {
+    title: 'Explorer quest',
+    intro: 'A little game for the curious. Unlock them all and there is something at the end.',
+    completeTitle: "You've seen it all.",
+    completeBody: "Thanks for exploring every corner. If you got this far, we'd probably work well together.",
+    items: [
+      { id: 'first-steps', title: 'First steps', hint: 'Scroll past the intro.', xp: 10 },
+      { id: 'shapeshifter', title: 'Shapeshifter', hint: 'Try all three themes.', xp: 30 },
+      { id: 'night-and-day', title: 'Night & day', hint: "Flip Kabsa's phone preview theme.", xp: 20 },
+      { id: 'recruiter-mode', title: 'Recruiter mode', hint: 'Open the CV.', xp: 20 },
+      { id: 'bookworm', title: 'Bookworm', hint: 'Open one of the articles.', xp: 20 },
+      { id: 'say-hi', title: 'Say hi', hint: 'Email me or copy my address.', xp: 30 },
+      { id: 'completionist', title: 'Completionist', hint: 'Visit every section of the page.', xp: 40 },
+      { id: 'secret-flutter', title: 'Hot reload', hint: 'Type the name of my favourite framework.', xp: 50, secret: true },
+    ] as QuestItem[],
   },
 
   speaking: {

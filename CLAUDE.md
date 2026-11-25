@@ -29,18 +29,23 @@ src/App.tsx                Theme state + section order
 src/components/
   Navbar.tsx               Sticky header, scroll-spy, mobile drawer
   ThemeSwitcher.tsx        3-way radio group (Midnight / Daylight / Paper)
-  Hero.tsx                 Name, pitch, CTAs, socials, photo or monogram placeholder, quick-scan strip
-  About.tsx                Bio + skills grid
+  Hero.tsx                 Role pills, greeting, word-by-word pitch (h1), CTAs, socials, photo, count-up stats strip
+  About.tsx                "Story" section (id=story): chapters on a scroll-drawn rail + skills grid
+  Writing.tsx              Featured article + list, platform/date/read time
+  MotionBits.tsx           ScrollProgress (header bar), CountUp, TiltCard (mouse tilt + spotlight)
   Experience.tsx           Timeline
   FeaturedWork.tsx         Project cards (Problem / Decision / Shipped) + category filter
   DeviceMockups.tsx        Hand-built phone and browser mockups, one per project
   SpeakingAndAchievements.tsx
   ContactFooter.tsx        Contact card + footer
-  Reveal.tsx               Fade/slide on scroll; renders a plain div under reduced motion
+  Reveal.tsx               Rise + fade + de-blur on scroll; plain div under reduced motion
+src/quest/
+  QuestContext.tsx         Explorer quest state: unlock(id), noteTheme(), section visits, secret word, localStorage
+  QuestHud.tsx             Corner badge + achievements panel, unlock toasts, completion confetti
   SocialIcons.tsx
 ```
 
-Section order and numbering: Hero, 01 About, 02 Experience, 03 Featured Work, 04 Speaking & Community, 05 Achievements, 06 Contact. The `0N.` labels are hardcoded in each component; renumber them if you reorder.
+Section order and numbering: Hero, 01 Story, 02 Experience, 03 Featured Work, 04 Writing, 05 Speaking & Community, 06 Achievements, 07 Contact. The `0N.` labels are hardcoded in each component; renumber them if you reorder. `siteContent.sectionIds` lists every section id in order: it drives the nav scroll-spy and the quest's Completionist achievement, so add new sections there too. Nav shows 6 links (Achievements is reachable by scroll only) at `lg`+; below that it's the menu drawer.
 
 ## Content rules (`src/content.ts`)
 
@@ -79,6 +84,7 @@ How it works:
 - Lines: `line`, `line-soft` (inner dividers), `line-strong` (hover/emphasis)
 - Text, strongest to weakest: `ink` (headings), `ink-2`, `body` (paragraphs), `muted`, `subtle` (labels/meta), `faint` (placeholders only)
 - Accent: `accent` (accent text/links/labels), `accent-hover`, `accent-solid` (filled buttons), `accent-solid-hover`, `on-accent` (text on filled buttons)
+- Status: `success` (the "Open to work" dot)
 - Decorative: `glow` (blurred ambient blob in the hero placeholder; warm amber in Paper, blue elsewhere), plus `--t-grid-line` used by the `.bg-blueprint` class
 
 Measured contrast (worst case across `canvas`/`surface`/`surface-2`, Nov 2026): `body` ≥ 8.5, `muted` ≥ 6.2, `subtle` ≥ 4.7, `accent` ≥ 4.9, filled button text ≥ 5.3 in every theme. `faint` is 3.2 to 3.9, which is why it's reserved for `[PLACEHOLDER]` text that disappears once real content is added. Re-measure after changing any `--t-*` value.
@@ -95,7 +101,13 @@ Use them with any utility: `bg-surface`, `text-muted`, `border-line`, `hover:tex
 - Layout container: `mx-auto max-w-6xl px-5 sm:px-8`. Sections: `py-16 sm:py-20`, `scroll-mt-20` (sticky header is `h-16`), bordered by `border-b border-line`.
 - Section header pattern: mono `text-xs text-accent` label `0N. Heading`, then an `h2` lead (`text-2xl sm:text-3xl font-semibold tracking-tight text-ink text-balance`).
 - Cards: `rounded-xl`/`rounded-2xl border border-line bg-surface`, hover lift `hover:-translate-y-0.5 hover:border-line-strong`.
-- Motion: subtle only. Use `<Reveal>` for scroll-in; it already respects `prefers-reduced-motion`, and `index.css` neutralises CSS transitions under reduced motion. No parallax, no bouncy springs, no cursor effects.
+- Motion: expressive but purposeful (updated Nov 2026 at Idris's request). Springs and small playful touches are fine; every animation must still serve reading order or feedback. Building blocks: `<Reveal>` (scroll-in), hero `Variants` stagger, `layoutId` sliding indicators (nav, theme switcher, work filter), `TiltCard`, `CountUp`, `.phone-float`. **Every motion path must check `useReducedMotion()`** and fall back to static; `index.css` also stills CSS animations under reduced motion. Animate transform/opacity/filter only. The browser pane throttles frames, so screenshots taken right after a scroll often catch mid-animation states: re-screenshot before calling something broken.
+
+### Explorer quest (gamification)
+- Copy lives in `siteContent.quest` (titles, hints, XP); logic in `src/quest/`. To add an achievement: add its id to the `QuestId` union and an item in `quest.items`, then call `useQuest().unlock('<id>')` where it happens.
+- Current triggers: first-steps (any section past hero), shapeshifter (all 3 themes, via `noteTheme` in `App.tsx`), night-and-day (Kabsa preview toggle), recruiter-mode (CV link), bookworm (article link), say-hi (email links or copy), completionist (every id in `sectionIds` crosses the viewport's middle band), secret-flutter (typing "flutter").
+- Must stay optional and unobtrusive: the badge only appears after the first unlock, can be hidden ("Hide the game"; footer link restores it), toasts are `aria-live="polite"`. Completion points people to the contact CTA: that's the point of the game.
+- Progress is per-visitor `localStorage` (`idris-portfolio-quest`), all access in try/catch.
 - Tap targets at least 40 to 44px. Mobile first: everything must work at 375px with no horizontal scroll.
 
 ## Accessibility & SEO
@@ -111,6 +123,8 @@ Use them with any utility: `bg-surface`, `text-muted`, `border-line`, `hover:tex
 This was generated in Google AI Studio. Not used by the site and safe to clean up when convenient: `@google/genai`, `express`, `dotenv`, `@types/express`, `tsx` in `package.json`; `.env.example` (Gemini key); `metadata.json`; the `DISABLE_HMR` logic and `copy-unbundled-src-assets` plugin in `vite.config.ts`. The package name is still `react-example`.
 
 ## Open TODOs
+
+- Two Hashnode articles were shared only as editor links (`hashnode.com/edit/...`), which visitors can't open, and their public URLs couldn't be resolved. Add them to `writing.items` (platform `'Hashnode'`) once Idris shares the public URLs, and add a Hashnode profile link to `writing.profiles`.
 
 All placeholders were filled or removed on 2026-11-25. Remaining items:
 

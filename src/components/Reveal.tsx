@@ -5,9 +5,12 @@ interface RevealProps {
   children: ReactNode;
   className?: string;
   delay?: number;
+  /** Distance in px the content rises from. */
+  y?: number;
 }
 
-export function Reveal({ children, className = '', delay = 0 }: RevealProps) {
+/** Scroll-in reveal: rise, fade and de-blur once. Plain div under reduced motion. */
+export function Reveal({ children, className = '', delay = 0, y = 22 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
 
   if (prefersReducedMotion) {
@@ -16,14 +19,10 @@ export function Reveal({ children, className = '', delay = 0 }: RevealProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12 }}
-      transition={{
-        duration: 0.42,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      initial={{ opacity: 0, y, filter: 'blur(6px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}

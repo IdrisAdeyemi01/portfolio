@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Menu, Send, X } from 'lucide-react';
 import { siteContent } from '../content';
 import type { ThemeId } from '../theme';
+import { ScrollProgress } from './MotionBits';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 interface NavbarProps {
@@ -14,8 +16,8 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
   const [activeHash, setActiveHash] = useState<string>('');
 
   useEffect(() => {
-    // Hero is observed too (it has no nav link) so the highlight clears at the top.
-    const sectionIds = ['hero', ...siteContent.nav.map((item) => item.href.replace('#', ''))];
+    // Every section is observed (some have no nav link) so the highlight clears between them.
+    const sectionIds = siteContent.sectionIds;
     const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -29,7 +31,8 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible.length > 0) {
           const id = visible[0].target.id;
-          setActiveHash(id === 'hero' ? '' : `#${id}`);
+          const isNavTarget = siteContent.nav.some((item) => item.href === `#${id}`);
+          setActiveHash(isNavTarget ? `#${id}` : '');
         }
       },
       { rootMargin: '-20% 0px -65% 0px', threshold: 0 }
@@ -49,7 +52,8 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-40 h-16 border-b border-line bg-canvas/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 h-16 border-b border-line bg-canvas/85 backdrop-blur-md">
+      <ScrollProgress />
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between gap-3 px-5 sm:gap-8 sm:px-8">
         {/* Zone 1: Brand wordmark */}
         <a
@@ -61,7 +65,7 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
         </a>
 
         {/* Zone 2: Clean single-line navigation links */}
-        <nav aria-label="Primary navigation" className="hidden items-center gap-5 md:flex lg:gap-7">
+        <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
           {siteContent.nav.map((item) => {
             const isActive = activeHash === item.href;
             return (
@@ -69,10 +73,18 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? 'location' : undefined}
-                className={`shrink-0 whitespace-nowrap text-sm transition-colors duration-150 ${
+                className={`relative shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition-colors duration-150 ${
                   isActive ? 'font-medium text-accent' : 'text-muted hover:text-ink'
                 }`}
               >
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active"
+                    aria-hidden="true"
+                    className="absolute inset-0 -z-10 rounded-md bg-accent/10"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                  />
+                )}
                 {item.label}
               </a>
             );
@@ -81,6 +93,13 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
 
         {/* Zone 3: Theme switcher & mobile menu trigger */}
         <div className="flex shrink-0 items-center gap-2">
+          <a
+            href="#contact"
+            className="group hidden min-h-[40px] items-center gap-1.5 whitespace-nowrap rounded-lg bg-accent-solid px-3.5 text-sm font-medium text-on-accent transition-colors hover:bg-accent-solid-hover sm:inline-flex"
+          >
+            Get in touch
+            <Send className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+          </a>
           <ThemeSwitcher theme={theme} onChange={onThemeChange} />
 
           <button
@@ -89,7 +108,7 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-menu"
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors duration-150 hover:border-line-strong md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors duration-150 hover:border-line-strong lg:hidden"
           >
             {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
           </button>
@@ -101,7 +120,7 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
         <nav
           id="mobile-nav-menu"
           aria-label="Mobile navigation"
-          className="border-b border-line bg-canvas px-5 py-4 shadow-lg md:hidden"
+          className="border-b border-line bg-canvas px-5 py-4 shadow-lg lg:hidden"
         >
           <ul className="flex flex-col gap-1">
             {siteContent.nav.map((item) => (
@@ -115,6 +134,16 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
                 </a>
               </li>
             ))}
+            <li className="pt-2 sm:hidden">
+              <a
+                href="#contact"
+                onClick={() => setMobileOpen(false)}
+                className="flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-accent-solid text-base font-medium text-on-accent"
+              >
+                Get in touch
+                <Send className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </li>
           </ul>
         </nav>
       )}
