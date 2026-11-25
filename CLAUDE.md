@@ -5,7 +5,7 @@ Personal portfolio for Idris Idris, Software Engineer (Flutter & Mobile), Lagos.
 ## Stack
 
 - React 19 + TypeScript, Vite 8, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tailwind.config`), `motion` for scroll reveals, `lucide-react` icons.
-- Single page, no router, no backend. Static build in `dist/`, hosted on Vercel (`npx vercel --prod` to deploy). `base: './'` in `vite.config.ts` keeps asset paths relative so the build works at any URL.
+- Single page, no router, no backend. Static build in `dist/`, hosted on Vercel at **https://idris-idris.vercel.app** (project `idris-portfolio`, connected to GitHub `IdrisAdeyemi01/portfolio`: every push to `main` deploys; the old `idris-portfolio-omega.vercel.app` still works). `base: './'` in `vite.config.ts` keeps asset paths relative so the build works at any URL.
 - Fonts: Plus Jakarta Sans (text) + JetBrains Mono (labels), loaded from Google Fonts in `index.html`.
 
 ```bash
@@ -132,4 +132,4 @@ All placeholders were filled or removed on 2026-11-25. Remaining items:
 - EMC Portal is private (no links by design).
 - Whoosh and Whoosh Rider are no longer on the App Store; only their Play Store links are used. Don't describe them as live on iOS.
 - Photo and CV are Google Drive links; they must stay shared as "Anyone with the link". Consider self-hosting the photo in `public/`.
-- `og:image` and canonical URL in `index.html` (live at https://idris-portfolio-omega.vercel.app).
+- `og:image` and canonical URL in `index.html` (use https://idris-idris.vercel.app).
