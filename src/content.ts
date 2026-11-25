@@ -137,9 +137,10 @@ export const siteContent = {
     },
     secondaryCta: {
       label: 'Download CV',
-      url: '[CV_LINK]',
+      url: 'https://drive.google.com/file/d/1uGXFhvBmm89MwqvO-qp2RTMP8q8lXn-B/view?usp=sharing',
     },
-    photoUrl: '[PHOTO_URL]',
+    // Google Drive image link (file must stay shared as "Anyone with the link").
+    photoUrl: 'https://drive.google.com/thumbnail?id=1zmjAOpJDKVxhc_6NtPiDBxq2AXzv2SWH&sz=w800',
     photoAlt: 'Portrait of Idris Idris, Software Engineer specialising in Flutter and mobile',
     focusAreas: [
       { label: 'Primary stack', value: 'Flutter · Dart · iOS & Android' },
@@ -185,7 +186,7 @@ export const siteContent = {
 
   experience: {
     heading: 'Experience',
-    lead: 'Production engineering across remote e-commerce, logistics, fintech, and verification platforms.',
+    lead: 'Fully remote since 2021, shipping production apps for e-commerce, logistics, and fintech teams.',
     items: [
       {
         id: 'nology-store',
@@ -208,7 +209,7 @@ export const siteContent = {
       {
         id: 'whoosh',
         company: 'Whoosh',
-        context: 'Logistics, contract, remote',
+        context: 'Nigeria-based logistics, contract, remote',
         role: 'Senior Mobile Engineer',
         dates: 'Oct 2023 to Jan 2026',
         highlights: [
@@ -220,7 +221,7 @@ export const siteContent = {
       {
         id: 'mabilla-group',
         company: 'Mabilla Group',
-        context: 'Full-time, fintech, remote',
+        context: 'Fintech, full-time, remote',
         role: 'Senior Mobile Engineer',
         dates: 'Oct 2023 to Sep 2024',
         highlights: [
@@ -230,9 +231,33 @@ export const siteContent = {
         ],
       },
       {
+        id: 'okorotech',
+        company: 'OkoroTech',
+        context: 'US-based, remote',
+        role: 'Flutter Engineer',
+        dates: 'Mar 2023 to Nov 2023',
+        highlights: [
+          'Delivered multiple Flutter apps for clients, from first build to release.',
+          'Led and mentored small teams through each project, keeping delivery on schedule and to standard.',
+          'Kept technical decisions tied to business goals through regular project updates with stakeholders.',
+        ],
+      },
+      {
+        id: 'dished-holdings',
+        company: 'Dished Holdings',
+        context: 'US-based, remote',
+        role: 'Flutter Engineer',
+        dates: 'Mar 2022 to Jan 2023',
+        highlights: [
+          'Reworked the app architecture to improve performance and the overall user experience.',
+          'Integrated an in-app chat system to give users a direct way to interact.',
+          'Worked with cross-functional teams, including the CTO, on improvements driven by market needs.',
+        ],
+      },
+      {
         id: 'errandpay',
         company: 'ErrandPay',
-        context: 'Fintech, Lagos',
+        context: 'Lagos-based fintech, remote',
         role: 'Mobile Developer',
         dates: 'Nov 2021 to Jan 2022',
         highlights: [
@@ -242,25 +267,15 @@ export const siteContent = {
         ],
       },
       {
-        id: 'greamit',
-        company: 'Greamit',
-        role: 'Software Engineer',
-        dates: '[DATES]',
-        context: 'Social',
+        id: 'dynatech',
+        company: 'Dynatech Nigeria',
+        context: 'Lagos-based, remote',
+        role: 'Mobile Developer',
+        dates: 'Jul 2021 to Oct 2021',
         highlights: [
-          "Built Greamit, a social app live on iOS and Android for viewing, creating, and sharing content around users' interests.",
+          'Turned complex UI designs into reusable Flutter components shared across client projects.',
+          'Integrated APIs of varying complexity with a focus on testability and maintainability.',
         ],
-      },
-      {
-        id: 'nesterverify',
-        company: 'NesterVerify',
-        context: 'Business verification app',
-        role: 'Software Engineer',
-        dates: '[DATES]',
-        highlights: [
-          '[Highlight 1: add key verification workflow or mobile architecture outcome at NesterVerify]',
-        ],
-        isPlaceholderHighlights: true,
       },
     ] as ExperienceItem[],
   },
