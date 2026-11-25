@@ -136,7 +136,7 @@ export function isPlaceholderValue(value?: string): boolean {
 export const siteContent = {
   meta: {
     name: 'Idris Idris',
-    role: 'Software Engineer · Flutter & Mobile',
+    role: 'Software Engineer',
     location: 'Lagos, Nigeria',
     availability: 'Available for remote senior roles, contract work & code review',
     email: 'idrisade.eedris@gmail.com',
@@ -179,8 +179,8 @@ export const siteContent = {
   hero: {
     name: 'Idris Idris',
     greeting: "Hi, I'm Idris Idris.",
-    title: 'Software Engineer · Flutter & Mobile',
-    pills: ['Senior Mobile Engineer @ Nology Store', 'Flutter & Dart', 'Remote since 2021'],
+    title: 'Software Engineer',
+    pills: ['Software Engineer @ Nology Store', 'Flutter & Dart', 'Remote since 2021'],
     pitch: "I treat every feature I build like I'm its CEO.",
     subcopy:
       'I ship production Flutter apps on iOS and Android for fintech, logistics, and e-commerce teams. I own features end to end: architecture, analytics, security, and the code review that keeps it all honest. Open to remote senior roles, contracts, and AI evaluation or code review work.',
@@ -194,7 +194,7 @@ export const siteContent = {
     },
     // Google Drive image link (file must stay shared as "Anyone with the link").
     photoUrl: 'https://drive.google.com/thumbnail?id=1zmjAOpJDKVxhc_6NtPiDBxq2AXzv2SWH&sz=w800',
-    photoAlt: 'Portrait of Idris Idris, Software Engineer specialising in Flutter and mobile',
+    photoAlt: 'Portrait of Idris Idris, Software Engineer',
   },
 
   /** Real, checkable numbers only. */
@@ -230,7 +230,7 @@ export const siteContent = {
         label: 'Chapter 3 · The owner',
         title: "Every feature gets a CEO, and it's me",
         body:
-          "Today I'm a Senior Mobile Engineer at Nology Store. Before I write a line of code, I study competitors to find what should be better, then own the feature end to end: architecture, analytics, security, and release. I also speak about it, most recently on securing AI features in Flutter at DevFest Ibadan 2026.",
+          "Today I'm a Software Engineer at Nology Store. Before I write a line of code, I study competitors to find what should be better, then own the feature end to end: architecture, analytics, security, and release. I also speak about it, most recently on securing AI features in Flutter at DevFest Ibadan 2026.",
         chips: ['Nology Store', 'DevFest Ibadan 2026'],
         isNow: true,
       },
@@ -273,15 +273,10 @@ export const siteContent = {
         role: 'Senior Mobile Engineer',
         dates: 'Jan 2026 to Present',
         highlights: [
-          "Worked on Nology Mobile, the store's Flutter e-commerce app on iOS and Android, and Kabsa, its Flutter driver app.",
-          'Led parts of a GetX to BLoC/Cubit migration covering search, trending keywords, debounced search, and scoped filter state.',
-          'Integrated Klaviyo end to end: identity resolution, APNs/FCM push token bridging, and in-app forms.',
-          'Built CMS-driven homepage sections with deep-link routing and GA4 tracking, plus a homepage analytics layer with 11 GA4 events, visibility-based impression tracking, and a reusable TrackableSection widget.',
-          'Fixed navigation failures in the multi-tab scoped search caused by GetX state issues, unblocking the core discovery flow.',
-          'Built a spotlight onboarding overlay with CustomPainter, a Remote Config kill-switch, and analytics.',
-          'Shipped scheduled app icon switching natively on iOS (Swift) and Android (activity-alias).',
-          'Implemented Firebase App Check and triaged a mobile penetration test report, separating real vulnerabilities from inflated findings.',
-          'Modernised CI/CD on Bitbucket Pipelines with caching and parallel steps.',
+          'Led parts of the GetX to BLoC/Cubit migration in Nology Mobile and fixed navigation failures in its multi-tab scoped search.',
+          'Built CMS-driven homepage sections with deep linking, tracked by an analytics layer of 11 GA4 events with visibility-based impressions.',
+          'Implemented Firebase App Check and triaged a mobile penetration test, separating real vulnerabilities from inflated findings.',
+          'Shipped native work on iOS (Swift) and Android, including scheduled app icon switching and end-to-end Klaviyo push and in-app forms.',
         ],
       },
       {

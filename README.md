@@ -2,7 +2,7 @@
 
 Live: **https://idris-idris.vercel.app**
 
-Personal site for Idris Idris, Software Engineer (Flutter & Mobile), Lagos.
+Personal site for Idris Idris, Software Engineer, Lagos.
 
 Built with React, TypeScript, Tailwind CSS v4 and Vite. Three colour themes: Midnight, Daylight and Paper.
 

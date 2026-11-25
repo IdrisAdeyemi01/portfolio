@@ -1,0 +1,89 @@
+<!doctype html>
+<!--
+  Source for public/og-image.png (the 1200x630 link preview).
+  Regenerate after changing the pitch, role or photo:
+    npm run og
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        background: #090c10;
+        color: #f3f6fa;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        position: relative;
+        -webkit-font-smoothing: antialiased;
+      }
+      .grid {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(56, 163, 255, 0.06) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(56, 163, 255, 0.06) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: linear-gradient(to right, #000 0%, rgba(0,0,0,.6) 55%, transparent 100%);
+      }
+      .glow {
+        position: absolute; width: 620px; height: 620px; right: -120px; top: -160px;
+        border-radius: 50%; background: radial-gradient(circle, rgba(56,163,255,.28), transparent 65%);
+        filter: blur(20px);
+      }
+      .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: linear-gradient(90deg, #0468d7, #38a3ff); }
+      .wrap { position: relative; display: flex; height: 100%; padding: 64px 64px 70px 72px; gap: 56px; align-items: center; }
+      .left { flex: 1; min-width: 0; }
+      .pill {
+        display: inline-flex; align-items: center; gap: 10px;
+        border: 1.5px solid rgba(56,163,255,.45); background: rgba(56,163,255,.12); color: #38a3ff;
+        font-size: 20px; font-weight: 600; padding: 9px 18px; border-radius: 999px;
+      }
+      .dot { width: 9px; height: 9px; border-radius: 50%; background: #38a3ff; box-shadow: 0 0 0 5px rgba(56,163,255,.2); }
+      h1 { margin-top: 30px; font-size: 64px; line-height: 1.06; font-weight: 800; letter-spacing: -0.03em; }
+      h1 .accent { color: #38a3ff; }
+      .who { margin-top: 30px; display: flex; align-items: center; gap: 16px; }
+      .name { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+      .sep { width: 1.5px; height: 26px; background: #2b3746; }
+      .role { font-size: 24px; color: #9ba8b8; font-weight: 500; }
+      .url { margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 21px; color: #7e8ea1; }
+      .photo {
+        width: 360px; flex-shrink: 0; border-radius: 28px; padding: 12px;
+        background: #11161d; border: 1.5px solid #2b3746;
+        box-shadow: 0 30px 60px rgba(0,0,0,.45);
+        transform: rotate(2deg);
+      }
+      .photo img { display: block; width: 100%; height: 410px; object-fit: cover; border-radius: 18px; }
+      .meta {
+        display: flex; justify-content: space-between; padding: 12px 6px 2px;
+        font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #9ba8b8; white-space: nowrap;
+      }
+      .ok { display: inline-flex; align-items: center; gap: 8px; }
+      .ok::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3ddc97; }
+    </style>
+  </head>
+  <body>
+    <div class="grid"></div>
+    <div class="glow"></div>
+    <div class="wrap">
+      <div class="left">
+        <span class="pill"><span class="dot"></span>Software Engineer · Flutter &amp; Dart</span>
+        <h1>I treat every feature I build like I'm its <span class="accent">CEO.</span></h1>
+        <div class="who">
+          <span class="name">Idris Idris</span>
+          <span class="sep"></span>
+          <span class="role">Remote since 2021 · Lagos, Nigeria</span>
+        </div>
+        <p class="url">idris-idris.vercel.app</p>
+      </div>
+      <div class="photo">
+        <img src="https://drive.google.com/thumbnail?id=1zmjAOpJDKVxhc_6NtPiDBxq2AXzv2SWH&sz=w800" alt="" referrerpolicy="no-referrer" />
+        <div class="meta"><span>iOS · Android</span><span class="ok">Open to work</span></div>
+      </div>
+    </div>
+    <div class="bar"></div>
+  </body>
+</html>

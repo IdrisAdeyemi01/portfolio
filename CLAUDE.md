@@ -1,6 +1,6 @@
 # Idris Idris · Portfolio
 
-Personal portfolio for Idris Idris, Software Engineer (Flutter & Mobile), Lagos. Its one job: get a recruiter or client to trust him within 10 seconds and reach out for **remote senior engineering roles, contract work, and AI evaluation / code review work**. Every change should serve that goal.
+Personal portfolio for Idris Idris, Software Engineer, Lagos. Its one job: get a recruiter or client to trust him within 10 seconds and reach out for **remote senior engineering roles, contract work, and AI evaluation / code review work**. Every change should serve that goal.
 
 ## Stack
 
@@ -60,6 +60,7 @@ Section order and numbering: Hero, 01 Story, 02 Experience, 03 Featured Work, 04
 - **No em dashes (—) anywhere**, in copy or UI strings. Use commas, colons, full stops, or ` · `. En dashes are also best avoided. Check with `grep -rn '—' src index.html`.
 - **No invented metrics, companies, dates or outcomes.** If a number or fact is needed and Idris hasn't given it, use a bracketed placeholder. Figures that are real and may be used: shipping Flutter professionally since 2021; 11 GA4 events on the Nology homepage analytics layer; 5,000+ requests handled by the MSSN Lagos support pipeline; Squadio winner 2021; Zindi hackathons 2018; DevFest Ibadan talk on Nov 21, 2026.
 - Project cards follow the "I own it like a CEO" frame: **Problem → Decision → Shipped**.
+- **Idris's title is always "Software Engineer"** wherever the site describes him (page title, meta/OG tags, hero, preview image, JSON-LD). Not "Senior Mobile Engineer" or "Software Engineer · Flutter & Mobile". Exception: the Experience timeline keeps each company's job title as on his CV.
 - Pitch line is fixed: "I treat every feature I build like I'm its CEO."
 
 ## Theming
